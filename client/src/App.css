@@ -1,0 +1,18 @@
+.btn_count{
+border: 0.1rem solid black !important
+}
+.btnDecrement{
+border: 0.1rem solid black !important
+}
+.btnDecrement:hover{
+background: red !important
+}
+.btnIncrement{
+border: 0.1rem solid black !important
+}
+.btnIncrement:hover{
+background: green !important
+}
+.icon{
+    color:red !important
+}
