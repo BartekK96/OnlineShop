@@ -7,7 +7,10 @@ export const register = newUser => {
       password: newUser.password
     })
     .then(res => {
-      console.log("Registered!");
+      return res;
+    })
+    .catch(err => {
+      return err.response;
     });
 };
 
@@ -23,7 +26,7 @@ export const login = user => {
       return JSON.stringify(res.data);
     })
     .catch(err => {
-      console.log(err);
+      return err.response;
     });
 };
 
@@ -48,5 +51,4 @@ export const order = (order, user) => {
     });
 };
 
-
- //"proxy": "http://localhost:3001"
+//"proxy": "http://localhost:3001"

@@ -104,7 +104,7 @@ class Navbar extends Component {
     );
 
     return (
-      <div className="con">{localStorage.token ? logInNav : logOutNav}</div>
+      <div>{localStorage.token ? logInNav : logOutNav}</div>
     );
   }
 }

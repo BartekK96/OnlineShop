@@ -14,6 +14,7 @@ login.post("/login", (req, res) => {
 
   //validation
   if (!login || !password) {
+    
     return res.status(400).json({ msg: "Please enter all fields" });
   }
   //check if user exist

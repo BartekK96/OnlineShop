@@ -7,7 +7,8 @@ export default class LoginPage extends Component {
     super();
     this.state = {
       login: "",
-      password: ""
+      password: "",
+      msg: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,18 +27,32 @@ export default class LoginPage extends Component {
       password: this.state.password
     };
     login(user).then(res => {
-      
-      if (res) {
-      this.props.history.push(`/`);
+      if (res.hasOwnProperty("data")) {
+        this.setState({
+          msg: res.data.msg
+        });
+      } else if (res) {
+        localStorage.setItem("firstLogin", "is");
+        this.props.history.push(`/`);
       }
     });
   };
 
   render() {
+    let error;
+    if (this.state.msg.length > 0) {
+      error = (
+        <div className="alert alert-danger text-uppercase text-center mt-4">
+          {this.state.msg}
+        </div>
+      );
+    }
+
     return (
-      <div className="con">
+      <div className="container">
+        <div>{error}</div>
         <div className="row">
-          <div className="col-md-6 mt-5 mx-auto">
+          <div className="col-md-6 mt-3 mx-auto">
             <form noValidate onSubmit={this.handleSubmit}>
               <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
               <div className="form-group">
@@ -63,7 +78,12 @@ export default class LoginPage extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button type="submit"className="btn btn-lg btn-primary btn-block">Sign in</button>
+              <button
+                type="submit"
+                className="btn btn-lg btn-primary btn-block"
+              >
+                Login
+              </button>
             </form>
           </div>
         </div>
@@ -71,4 +91,3 @@ export default class LoginPage extends Component {
     );
   }
 }
-
