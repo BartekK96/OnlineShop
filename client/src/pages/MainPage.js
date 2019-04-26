@@ -12,8 +12,29 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstLogin: true
+      firstLogin: true,
+      warning: false,
+      success: false
     };
+  }
+
+  showWarning(value) {
+    this.setState({
+      warning: value
+    });
+    document.documentElement.scrollTop = 0;
+  }
+  showSuccess(value) {
+    this.setState({
+      success: value,
+      warning: false
+    });
+    document.documentElement.scrollTop = 0;
+  }
+
+  onClick(e) {
+    this.showWarning();
+    this.showSuccess();
   }
 
   componentDidMount() {
@@ -22,6 +43,7 @@ export default class Main extends Component {
         firstLogin: false
       });
     }
+
     localStorage.removeItem("firstLogin");
   }
 
@@ -36,10 +58,26 @@ export default class Main extends Component {
     } else {
     }
 
+    let info;
+    if (this.state.warning) {
+      info = (
+        <div className="alert alert-warning text-uppercase text-center mt-4">
+          this product is already in cart
+        </div>
+      );
+    } else if (this.state.success) {
+      info = (
+        <div className="alert alert-success text-uppercase text-center mt-4">
+          Product added to the cart
+        </div>
+      );
+    }
+
     return (
       <div className="container">
         <div>{login}</div>
-        <Title className="p-3">Welcome to our store</Title>
+        <Title className="p-3 text-primary">Welcome to our store</Title>
+        {info}
         <div className="row">
           <DataConsumer>
             {value => {
@@ -49,6 +87,9 @@ export default class Main extends Component {
                     key={product._id}
                     product={product}
                     addToCart={value.addToCart}
+                    showWarning={this.showWarning.bind(this)}
+                    showSuccess={this.showSuccess.bind(this)}
+                    onClick={this.onClick.bind(this)}
                   />
                 );
               });
@@ -63,3 +104,9 @@ export default class Main extends Component {
 const Title = styled.h1`
   text-align: center;
 `;
+
+// info = (
+//   <div className="alert alert-warning text-uppercase text-center mt-4">
+//     this product is already in cart
+//   </div>
+// );

@@ -91,7 +91,7 @@ class DataProvider extends React.Component {
   clearCart = () => {
     let tempProducts = [...this.state.cart];
     tempProducts.map(product => {
-      product.inCart = false;
+      return product.inCart = false;
     });
     this.setState({
       orderTotal:0,

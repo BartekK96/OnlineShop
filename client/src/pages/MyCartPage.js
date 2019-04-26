@@ -21,7 +21,7 @@ export default class MyCartPage extends Component {
   render() {
     return (
       <div className="container">
-        <Title>Your shopping cart</Title>
+        <Title className="text-primary p-2">Your shopping cart</Title>
         <DataConsumer>
           {value => {
             const cart = value.cart;
@@ -34,7 +34,7 @@ export default class MyCartPage extends Component {
                 </div>
               );
             } else {
-              return <div>your cart is currently empty</div>;
+              return <h2 className="text-capitalize text-center text-secondary">your cart is currently empty</h2>;
             }
           }}
         </DataConsumer>

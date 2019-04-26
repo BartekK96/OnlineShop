@@ -30,7 +30,6 @@ export default class RegisterPage extends Component {
       password: this.state.password
     };
     register(user).then(res => {
-      
       if (res.status === 400) {
         this.setState({
           msg: res.data.msg
