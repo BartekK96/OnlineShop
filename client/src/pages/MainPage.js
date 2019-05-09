@@ -13,6 +13,7 @@ export default class Main extends Component {
     super(props);
     this.state = {
       firstLogin: true,
+      logout: true,
       warning: false,
       success: false,
       name: null
@@ -48,7 +49,8 @@ export default class Main extends Component {
   componentDidMount() {
     if (!localStorage.firstLogin && this.state.firstLogin) {
       this.setState({
-        firstLogin: false
+        firstLogin: false,
+        logout: false
       });
     }
 
@@ -68,7 +70,7 @@ export default class Main extends Component {
           <div className="alert alert-success   mt-4">Login Success</div>
         </div>
       );
-    } else if (!localStorage.token) {
+    } else if (!localStorage.token && this.state.logout) {
       logout = (
         <div className="container text-center text-uppercase">
           <div className="alert alert-success   mt-4">Logout Success</div>
