@@ -14,14 +14,18 @@ export default class Main extends Component {
     this.state = {
       firstLogin: true,
       warning: false,
-      success: false
+      success: false,
+      name: null,
+     
     };
   }
+
 
   showWarning(value) {
     this.setState({
       warning: value
     });
+
     document.documentElement.scrollTop = 0;
   }
   showSuccess(value) {
@@ -29,7 +33,13 @@ export default class Main extends Component {
       success: value,
       warning: false
     });
+
     document.documentElement.scrollTop = 0;
+  }
+  setName(value) {
+    this.setState({
+      name: value
+    });
   }
 
   onClick(e) {
@@ -62,13 +72,13 @@ export default class Main extends Component {
     if (this.state.warning) {
       info = (
         <div className="alert alert-warning text-uppercase text-center mt-4">
-          this product is already in cart
+          {this.state.name} is already in cart
         </div>
       );
     } else if (this.state.success) {
       info = (
         <div className="alert alert-success text-uppercase text-center mt-4">
-          Product added to the cart
+          {this.state.name} added to the cart
         </div>
       );
     }
@@ -89,6 +99,7 @@ export default class Main extends Component {
                     addToCart={value.addToCart}
                     showWarning={this.showWarning.bind(this)}
                     showSuccess={this.showSuccess.bind(this)}
+                    setName={this.setName.bind(this)}
                     onClick={this.onClick.bind(this)}
                   />
                 );
@@ -104,9 +115,3 @@ export default class Main extends Component {
 const Title = styled.h1`
   text-align: center;
 `;
-
-// info = (
-//   <div className="alert alert-warning text-uppercase text-center mt-4">
-//     this product is already in cart
-//   </div>
-// );

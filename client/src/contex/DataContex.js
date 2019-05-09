@@ -8,16 +8,46 @@ class DataProvider extends React.Component {
   state = {
     products: [],
     cart: [],
-    orderTotal: 0
-    
+    orderTotal: 0,
+    search: [],
+    tempProducts: []
   };
 
   componentDidMount() {
     getProduct().then(products => {
       this.setState({
-        products: products
+        products: products,
+        tempProducts: products
       });
     });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.search !== this.state.search) {
+      getProduct().then(() => {
+        this.setState({
+          products: this.state.search
+        });
+      });
+    }
+  }
+
+  getSearchValue = value => {
+    let tempProducts = [...this.state.tempProducts];
+
+    let search = tempProducts.filter(product => {
+      return this.checkSubstring(product.name, value);
+    });
+
+    this.setState(() => {
+      return { search: search };
+    });
+  };
+
+  checkSubstring(a, b) {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+    return a.indexOf(b) >= 0;
   }
 
   getItem = id => {
@@ -91,10 +121,10 @@ class DataProvider extends React.Component {
   clearCart = () => {
     let tempProducts = [...this.state.cart];
     tempProducts.map(product => {
-      return product.inCart = false;
+      return (product.inCart = false);
     });
     this.setState({
-      orderTotal:0,
+      orderTotal: 0,
       cart: []
     });
   };
@@ -108,7 +138,8 @@ class DataProvider extends React.Component {
           increment: this.increment,
           decrement: this.decrement,
           removeProduct: this.removeProduct,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          getSearch: this.getSearchValue
         }}
       >
         {this.props.children}

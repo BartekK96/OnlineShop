@@ -5,10 +5,12 @@ export default class Product extends Component {
     super(props);
     this.state = {
       warning: true,
-      success: true
+      success: true,
+      name: this.props.product.name
     };
     this.showWarning = this.showWarning.bind(this);
     this.showSuccess = this.showSuccess.bind(this);
+    this.setName = this.setName.bind(this);
   }
 
   showWarning = () => {
@@ -16,6 +18,9 @@ export default class Product extends Component {
   };
   showSuccess = () => {
     this.props.showSuccess(this.state.success);
+  };
+  setName = () => {
+    this.props.setName(this.state.name);
   };
   render() {
     const { _id, name, price, img, inCart } = this.props.product;
@@ -34,8 +39,10 @@ export default class Product extends Component {
               onClick={() => {
                 if (!inCart) {
                   addToCart(_id);
+                  this.setName();
                   this.showSuccess();
                 } else {
+                  this.setName();
                   this.showWarning();
                 }
               }}
