@@ -80,12 +80,11 @@ class DataProvider extends React.Component {
     if (product.count < 10) {
       product.count++;
       product.total = product.total + parseInt(product.price);
+      this.setState({
+        cart: [...this.state.cart],
+        orderTotal: this.state.orderTotal + parseInt(product.price)
+      });
     }
-
-    this.setState({
-      cart: [...this.state.cart],
-      orderTotal: this.state.orderTotal + parseInt(product.price)
-    });
   };
   decrement = id => {
     let tempProducts = [...this.state.products];
@@ -94,12 +93,11 @@ class DataProvider extends React.Component {
     if (product.count > 0) {
       product.count--;
       product.total = product.total - parseInt(product.price);
+      this.setState({
+        cart: [...this.state.cart],
+        orderTotal: this.state.orderTotal - parseInt(product.price)
+      });
     }
-
-    this.setState({
-      cart: [...this.state.cart],
-      orderTotal: this.state.orderTotal - parseInt(product.price)
-    });
   };
   removeProduct = id => {
     let tempProducts = [...this.state.cart];

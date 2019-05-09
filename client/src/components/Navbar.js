@@ -5,9 +5,9 @@ import { withRouter } from "react-router-dom";
 //importing consumer
 import { DataConsumer } from "../contex/DataContex";
 
-import LogOutNav from "./Navbar/LogInNav";
-import LogInNav from "./Navbar/LogInNav";
-import LogInNavCart from "./Navbar/LogInNavCart";
+import LogOutNav from "./NavbarFolder/LogOutNav";
+import LogInNav from "./NavbarFolder/LogInNav";
+import LogInNavCart from "./NavbarFolder/LogInNavCart";
 
 class Navbar extends Component {
   constructor(props) {
@@ -15,25 +15,6 @@ class Navbar extends Component {
     this.state = {
       search: ""
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(e) {
-    this.setState({
-      search: e.target.value
-    });
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log(this.state.search);
-    //const search = this.state.search;
-  }
-
-  logOut(e) {
-    e.preventDefault();
-    localStorage.removeItem("token");
-    this.props.history.push(`/`);
   }
 
   render() {
@@ -41,13 +22,19 @@ class Navbar extends Component {
       <DataConsumer>
         {value => {
           return this.props.history.location.pathname !== "/myCart" ? (
-            localStorage.token ? (
-              <LogInNav getSearch={value.getSearch} />
+            typeof localStorage.token !== "undefined" ? (
+              <LogInNav
+                getSearch={value.getSearch}
+                history={this.props.history}
+              />
             ) : (
-              <LogOutNav getSearch={value.getSearch} />
+              <LogOutNav
+                getSearch={value.getSearch}
+                history={this.props.history}
+              />
             )
           ) : (
-            <LogInNavCart />
+            <LogInNavCart history={this.props.history} />
           );
         }}
       </DataConsumer>
