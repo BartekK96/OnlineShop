@@ -15,11 +15,9 @@ export default class Main extends Component {
       firstLogin: true,
       warning: false,
       success: false,
-      name: null,
-     
+      name: null
     };
   }
-
 
   showWarning(value) {
     this.setState({
@@ -59,13 +57,23 @@ export default class Main extends Component {
 
   render() {
     let login;
-    if (this.state.firstLogin && localStorage.token) {
+    let logout;
+    if (
+      this.state.firstLogin &&
+      localStorage.token &&
+      this.state.success === false
+    ) {
       login = (
         <div className="container text-center text-uppercase">
           <div className="alert alert-success   mt-4">Login Success</div>
         </div>
       );
-    } else {
+    } else if (!localStorage.token) {
+      logout = (
+        <div className="container text-center text-uppercase">
+          <div className="alert alert-success   mt-4">Logout Success</div>
+        </div>
+      );
     }
 
     let info;
@@ -86,6 +94,7 @@ export default class Main extends Component {
     return (
       <div className="container">
         <div>{login}</div>
+        <div>{logout}</div>
         <Title className="p-3 text-primary">Welcome to our store</Title>
         {info}
         <div className="row">
@@ -100,7 +109,9 @@ export default class Main extends Component {
                     showWarning={this.showWarning.bind(this)}
                     showSuccess={this.showSuccess.bind(this)}
                     setName={this.setName.bind(this)}
-                    onClick={this.onClick.bind(this)}
+                    onClick={() => {
+                      this.onClick.bind(this);
+                    }}
                   />
                 );
               });
