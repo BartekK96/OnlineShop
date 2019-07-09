@@ -6,13 +6,14 @@ Online store with the possibility of logging into a user account, adding product
 
 To run this app you need create config file on server folder. Then create file with your jwtSecret and connection string to your MongoDB cluster.
 
-Next enter the server file then enter:
+Next enter the server folder then enter:
 
 ```node
 npm install
 npm run start
 ```
-Then you need to create your environment variable with sandbox id to your paypal. In next step enter:
+
+Then enter client folder and create your environment variable with sandbox id to your paypal. In next step enter:
 
 ```node
 npm install
