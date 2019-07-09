@@ -15,6 +15,7 @@ export default class Main extends Component {
       firstLogin: true,
       logout: true,
       warning: false,
+      warningLogout: false,
       success: false,
       name: null
     };
@@ -23,6 +24,13 @@ export default class Main extends Component {
   showWarning(value) {
     this.setState({
       warning: value
+    });
+
+    document.documentElement.scrollTop = 0;
+  }
+  showWarningLogout(value) {
+    this.setState({
+      warningLogout: value
     });
 
     document.documentElement.scrollTop = 0;
@@ -43,6 +51,7 @@ export default class Main extends Component {
 
   onClick(e) {
     this.showWarning();
+    this.showWarningLogout();
     this.showSuccess();
   }
 
@@ -71,6 +80,7 @@ export default class Main extends Component {
         </div>
       );
     } else if (!localStorage.token && this.state.logout) {
+      
       logout = (
         <div className="container text-center text-uppercase">
           <div className="alert alert-success   mt-4">Logout Success</div>
@@ -92,6 +102,13 @@ export default class Main extends Component {
         </div>
       );
     }
+    else if (this.state.warningLogout) {
+      info = (
+        <div className="alert alert-warning text-uppercase text-center mt-4">
+          You need to log in first
+        </div>
+      );
+    }
 
     return (
       <div className="container">
@@ -109,6 +126,7 @@ export default class Main extends Component {
                     product={product}
                     addToCart={value.addToCart}
                     showWarning={this.showWarning.bind(this)}
+                    showWarningLogout={this.showWarningLogout.bind(this)}
                     showSuccess={this.showSuccess.bind(this)}
                     setName={this.setName.bind(this)}
                     onClick={() => {

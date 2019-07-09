@@ -25,7 +25,7 @@ export default class LogInNav extends Component {
   }
 
   logOut(e) {
-    e.preventDefault();
+    //e.preventDefault();
     localStorage.removeItem("token");
     this.props.history.push(`/`);
   }

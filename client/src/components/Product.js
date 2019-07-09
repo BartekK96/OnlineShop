@@ -5,16 +5,21 @@ export default class Product extends Component {
     super(props);
     this.state = {
       warning: true,
+      warningLogout: true,
       success: true,
       name: this.props.product.name
     };
     this.showWarning = this.showWarning.bind(this);
+    this.showWarningLogout = this.showWarningLogout.bind(this);
     this.showSuccess = this.showSuccess.bind(this);
     this.setName = this.setName.bind(this);
   }
 
   showWarning = () => {
     this.props.showWarning(this.state.warning);
+  };
+  showWarningLogout = () => {
+    this.props.showWarningLogout(this.state.warningLogout);
   };
   showSuccess = () => {
     this.props.showSuccess(this.state.success);
@@ -37,13 +42,17 @@ export default class Product extends Component {
             <button
               className="btn btn-primary"
               onClick={() => {
-                if (!inCart) {
-                  addToCart(_id);
-                  this.setName();
-                  this.showSuccess();
+                if (localStorage.token) {
+                  if (!inCart) {
+                    addToCart(_id);
+                    this.setName();
+                    this.showSuccess();
+                  } else {
+                    this.setName();
+                    this.showWarning();
+                  }
                 } else {
-                  this.setName();
-                  this.showWarning();
+                  this.showWarningLogout();
                 }
               }}
             >
