@@ -21,7 +21,11 @@ npm run start
 ```
 
 # Screenshots
+![github-small](https://github.com/BartekK96/OnlineShop/blob/master/img/img1.png)
 
+![github-small](https://github.com/BartekK96/OnlineShop/blob/master/img/img2.png)
+
+![github-small](https://github.com/BartekK96/OnlineShop/blob/master/img/img3.png)
 
 # Tech used
 
